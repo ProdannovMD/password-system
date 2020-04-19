@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    <style>
+        body {
+            font-family: "Times New Roman", Times, serif;
+        }
+    </style>
+</head>
+<body>
+<form action="/practice/" method="get">
+    <p style="text-align: right;">&nbsp;<input type="submit" value="Back to home page" /></p>
+</form>
+<form action="/practice/register" method="post">
+    <p style="text-align: center;">&nbsp;</p>
+    <h1 style="text-align: center;">Sign up</h1>
+    <p style="text-align: center;"><input required type="text" name="login" placeholder="Login">
+    <p style="text-align: center;"><input type="text" name="name" placeholder="Name">
+    <p style="text-align: center;"><input type="text" name="password" required minlength="7" pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*\d)(?=.*[\W_]).{7,}" title="Minimum of 7 characters. Should have at least one special character, one number, and one upper and lower case letter." placeholder="Password">
+    <p style="text-align: center; color: red;"><span th:text="${errorMessage}"></span></p>
+    <p style="text-align: center;"><input type="submit">
+</form>
+</body>
+</html>

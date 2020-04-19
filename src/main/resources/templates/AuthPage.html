@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Authentication</title>
+    <style>
+        body {
+            font-family: "Times New Roman", Times, serif;
+        }
+    </style>
+</head>
+<body>
+<form action="/practice/" method="get">
+    <p style="text-align: right;">&nbsp;<input type="submit" value="Back to home page" /></p>
+</form>
+<form action="/practice/auth" method="post">
+    <p style="text-align: center;">&nbsp;</p>
+    <h1 style="text-align: center;"><strong>Sign in</strong></h1>
+    <p style="text-align: center;"><input required name="login" type="text" placeholder="Login" /></p>
+    <p style="text-align: center;"><input required name="password" type="text" placeholder="Password" /></p>
+    <p style="text-align: center; color: red;"><span th:text="${errorMessage}"></span></p>
+    <p style="text-align: center;"><input type="submit" /></p>
+</form>
+</body>
+</html>
