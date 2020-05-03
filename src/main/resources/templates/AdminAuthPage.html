@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Авторизация</title>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
+</head>
+<body>
+<form action="/practice/" method="get">
+    <p style="text-align: right;">&nbsp;<input class="pure-button" type="submit" value="На главную страницу" /></p>
+</form>
+<h2 style="text-align: center;">Авторизация администратора</h2>
+<form class="pure-form" action="/practice/admin" method="post">
+    <p style="text-align: center;">Пароль администратора: <input id="apassword" type="text" name="password" placeholder="Password" required></p>
+    <p style="text-align: center; color: red;"><span th:text="${errorMessage}"></span></p>
+    <p style="text-align: center;"><input class="pure-button pure-button-active" type="submit" value="Авторизироваться"></p>
+</form>
+</body>
+</html>

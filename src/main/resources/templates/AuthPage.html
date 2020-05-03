@@ -2,7 +2,8 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Authentication</title>
+    <title>Авторизация</title>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
     <style>
         body {
             font-family: "Times New Roman", Times, serif;
@@ -11,15 +12,15 @@
 </head>
 <body>
 <form action="/practice/" method="get">
-    <p style="text-align: right;">&nbsp;<input type="submit" value="Back to home page" /></p>
+    <p style="text-align: right;">&nbsp;<input class="pure-button" type="submit" value="На главную страницу" /></p>
 </form>
-<form action="/practice/auth" method="post">
+<form class="pure-form" action="/practice/auth" method="post">
     <p style="text-align: center;">&nbsp;</p>
-    <h1 style="text-align: center;"><strong>Sign in</strong></h1>
-    <p style="text-align: center;"><input required name="login" type="text" placeholder="Login" /></p>
-    <p style="text-align: center;"><input required name="password" type="text" placeholder="Password" /></p>
+    <h1 style="text-align: center;"><strong>Авторизация пользователя</strong></h1>
+    <p style="text-align: center;">Логин:&nbsp; &nbsp;<input required name="login" type="text" placeholder="Login" /></p>
+    <p style="text-align: center;">Пароль: <input required name="password" type="text" placeholder="Password" /></p>
     <p style="text-align: center; color: red;"><span th:text="${errorMessage}"></span></p>
-    <p style="text-align: center;"><input type="submit" /></p>
+    <p style="text-align: center;"><input class="pure-button pure-button-active" type="submit" value="Авторизироваться" /></p>
 </form>
 </body>
 </html>

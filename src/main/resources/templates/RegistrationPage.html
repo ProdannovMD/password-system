@@ -2,7 +2,8 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Registration</title>
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
     <style>
         body {
             font-family: "Times New Roman", Times, serif;
@@ -11,16 +12,22 @@
 </head>
 <body>
 <form action="/practice/" method="get">
-    <p style="text-align: right;">&nbsp;<input type="submit" value="Back to home page" /></p>
+    <p style="text-align: right;">&nbsp;<input class="pure-button" type="submit" value="На главную страницу" /></p>
 </form>
-<form action="/practice/register" method="post">
+<form class="pure-form" action="/practice/register" method="post">
     <p style="text-align: center;">&nbsp;</p>
-    <h1 style="text-align: center;">Sign up</h1>
-    <p style="text-align: center;"><input required type="text" name="login" placeholder="Login">
-    <p style="text-align: center;"><input type="text" name="name" placeholder="Name">
-    <p style="text-align: center;"><input type="text" name="password" required minlength="7" pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*\d)(?=.*[\W_]).{7,}" title="Minimum of 7 characters. Should have at least one special character, one number, and one upper and lower case letter." placeholder="Password">
+    <h1 style="text-align: center;">Регистрация нового пользователя</h1>
+    <p style="text-align: center;">Логин:&nbsp; &nbsp;<input required type="text" name="login" placeholder="Login">
+    <p style="text-align: center;">Имя:&nbsp; &nbsp; &nbsp;&nbsp;<input type="text" name="name" placeholder="Name">
+    <p style="text-align: center;">Пароль:
+        <input type="text" name="password" required minlength="7"
+               oninvalid="setCustomValidity('Минимальная длина пароля должна составлять 7 символов. Пароль должен содержать хотя бы один специальный символ, один цифровой символ и по одному символу верхнего и нижнего регистра.')"
+               pattern="(?=.*?[А-ЯA-Z])(?=.*?[а-яa-z])(?=.*\d)(?=.*[\W_]).{7,}"
+               title="Минимальная длина пароля должна составлять 7 символов. Пароль должен содержать хотя бы один специальный символ, один цифровой символ и по одному символу верхнего и нижнего регистра."
+               placeholder="Password">
+    </p>
     <p style="text-align: center; color: red;"><span th:text="${errorMessage}"></span></p>
-    <p style="text-align: center;"><input type="submit">
+    <p style="text-align: center;"><input class="pure-button pure-button-active" type="submit" value="Зарегистрироваться"></p>
 </form>
 </body>
 </html>

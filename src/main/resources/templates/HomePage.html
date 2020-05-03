@@ -2,14 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Practice</title>
+    <title>Практика</title>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
     <style>
         body {
             font-family: "Times New Roman", Times, serif;
         }
 
         input {
-            width: 150px;
+            width: 170px;
             height: 25px
             font-size: 16px
         }
@@ -17,12 +18,16 @@
 </head>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
-<h1 style="text-align: center;">Welcome!</h1>
-<h2 style="text-align: center;">Sign into your account or register a new one!</h2>
+<h1 style="text-align: center;">Добро пожаловать!</h1>
+<h2 style="text-align: center;">Вы можете авторизироваться или зарегистрировать нового пользователя!</h2>
 <form action="/practice/auth" method="get">
-    <p style="text-align: center;"><input width="500" type="submit" value="Sign In" /></p>
+    <p style="text-align: center;"><input class="pure-button pure-button-active" width="500" type="submit" value="Авторизироваться" /></p>
 </form>
 <form action="/practice/register" method="get">
-    <p style="text-align: center;"><input type="submit" value="Register" /></form>
+    <p style="text-align: center;"><input class="pure-button pure-button-active" type="submit" value="Зарегистрироваться" />
+</form>
+<form action="/practice/admin" method="get">
+    <p style="text-align: center;"><input class="pure-button pure-button-active" type="submit" value="Администрирование" />
+</form>
 </body>
 </html>
