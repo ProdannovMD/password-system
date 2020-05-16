@@ -11,8 +11,11 @@ import ssu.passwordsystem.hashfunctions.NHash;
 import ssu.passwordsystem.objects.User;
 import ssu.passwordsystem.repo.UserRepository;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -26,10 +29,15 @@ public class PracticeController {
     private static final String ADMIN_PASSWORD = "ae38e5284fef91c8ef04d6f9b8795873";
     @Autowired
     private UserRepository userRepository;
+    private Map<String, User> userSession = new HashMap<>();
 
     @GetMapping("/")
-    String home() {
-        return "HomePage";
+    String home(Model model, HttpSession session) {
+        if (!userSession.containsKey(session.getId()))
+            return "HomePage";
+        User user = userSession.get(session.getId());
+        model.addAttribute("user", user);
+        return "HomeUserPage";
     }
 
     @GetMapping("/admin")
@@ -59,18 +67,23 @@ public class PracticeController {
     String adminDelete(@RequestParam("login") String login, Model model) {
         if (userRepository.existsById(login))
             userRepository.deleteById(login);
+        userSession.entrySet().removeIf(entry -> entry.getValue().getLogin().equals(login));
         model.addAttribute("users", userRepository.findAll());
         return "AdminPage";
     }
 
     @GetMapping("/auth")
-    String authGet() {
+    String authGet(HttpSession session) {
+        if (userSession.containsKey(session.getId()))
+            return "redirect:/practice/";
         return "AuthPage";
     }
 
 
     @PostMapping(value = "/auth")
-    String authPost(@RequestParam("login") String login, @RequestParam("password") String password, Model model) {
+    String authPost(@RequestParam("login") String login, @RequestParam("password") String password, Model model, HttpSession session) {
+        if (userSession.containsKey(session.getId()))
+            return "redirect:/practice/";
         Optional<User> userOpt = userRepository.findById(login);
         if (!userOpt.isPresent()) {
             model.addAttribute("errorMessage", WRONG_LOGIN_DATA);
@@ -84,11 +97,11 @@ public class PracticeController {
             }
             String name = user.getName();
             StringBuilder successMessage = new StringBuilder();
-            successMessage.append("Пользователь ");
-            if (name == null || name.isEmpty())
-                name = login;
-            successMessage.append(name)
-                    .append(" авторизирован.");
+            successMessage.append("Пользователь ")
+                    .append(name == null || name.isEmpty() ? login : name)
+                    .append(" вошел в систему.");
+
+            userSession.put(session.getId(), user);
             model.addAttribute("successMessage", successMessage.toString());
             return "SuccessPage";
         } catch (IOException e) {
@@ -98,7 +111,9 @@ public class PracticeController {
     }
 
     @GetMapping("/register")
-    String registerGet() {
+    String registerGet(HttpSession session) {
+        if (userSession.containsKey(session.getId()))
+            return "redirect:/practice/";
         return "RegistrationPage";
     }
 
@@ -107,8 +122,11 @@ public class PracticeController {
             @RequestParam("login") String login,
             @RequestParam("name") String name,
             @RequestParam("password") String password,
-            Model model
+            Model model,
+            HttpSession session
     ) {
+        if (userSession.containsKey(session.getId()))
+            return "redirect:/practice/";
         if (userRepository.existsById(login)) {
             model.addAttribute("errorMessage", LOGIN_TAKEN_ERROR);
             return "RegistrationPage";
@@ -117,16 +135,20 @@ public class PracticeController {
             userRepository.save(new User(login, name, NHash.hash(password)));
 
             StringBuilder successMessage = new StringBuilder();
-            successMessage.append("Пользователь ");
-            if (name == null || name.isEmpty())
-                name = login;
-            successMessage.append(name)
-                    .append(" зарегестрирован.");
+            successMessage.append("Пользователь ")
+                    .append(login)
+                    .append(" зарегистрирован.");
             model.addAttribute("successMessage", successMessage.toString());
             return "SuccessPage";
         } catch (IOException e) {
             model.addAttribute("errorMessage", TECHNICAL_ERROR);
             return "RegistrationPage";
         }
+    }
+
+    @PostMapping("/out")
+    String signOutPost(HttpSession session) {
+        userSession.remove(session.getId());
+        return "redirect:/practice/";
     }
 }
